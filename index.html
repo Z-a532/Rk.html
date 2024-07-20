@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Code Editor</title>
+  <style>
+    /* CSS Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      display: flex;
+      height: 100vh;
+    }
+
+    .editor {
+      flex: 1;
+      background-color: #1e1e1e;
+      color: #d4d4d4;
+      padding: 20px;
+      font-size: 16px;
+      font-family: 'Courier New', monospace;
+      border-right: 1px solid #333;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .preview {
+      flex: 1;
+      background-color: #fff;
+      padding: 20px;
+    }
+
+    .toolbar {
+      background-color: #2d2d2d;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .toolbar button {
+      background-color: #444;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+
+    #code-editor {
+      flex: 1;
+      background-color: #1e1e1e;
+      color: #d4d4d4;
+      border: none;
+      outline: none;
+      font-size: 16px;
+      font-family: 'Courier New', monospace;
+      resize: none;
+      padding: 10px;
+    }
+
+    .fullscreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="editor">
+      <div class="toolbar">
+        <button id="run-code">Run</button>
+        <button id="save-code">Save</button>
+        <button id="format-code">Format</button>
+        <button id="toggle-fullscreen">Fullscreen</button>
+        <button id="increase-font">+</button>
+        <button id="decrease-font">-</button>
+      </div>
+      <textarea id="code-editor" placeholder="Enter your code here..."></textarea>
+    </div>
+    <div class="preview">
+      <iframe id="preview-frame"></iframe>
+    </div>
+  </div>
+
+  <script>
+    // JavaScript functionality
+    const codeEditor = document.getElementById('code-editor');
+    const previewFrame = document.getElementById('preview-frame');
+    const runCodeButton = document.getElementById('run-code');
+    const saveCodeButton = document.getElementById('save-code');
+    const formatCodeButton = document.getElementById('format-code');
+    const toggleFullscreenButton = document.getElementById('toggle-fullscreen');
+    const increaseFontButton = document.getElementById('increase-font');
+    const decreaseFontButton = document.getElementById('decrease-font');
+
+    function updatePreview() {
+      const code = codeEditor.value;
+      previewFrame.contentDocument.open();
+      previewFrame.contentDocument.write(code);
+      previewFrame.contentDocument.close();
+    }
+
+    function formatCode() {
+      // Add your code formatting logic here
+      console.log('Formatting code...');
+    }
+
+    function toggleFullscreen() {
+      const editor = document.querySelector('.editor');
+      editor.classList.toggle('fullscreen');
+    }
+
+    function increaseFontSize() {
+      const currentFontSize = parseFloat(window.getComputedStyle(codeEditor).fontSize);
+      codeEditor.style.fontSize = `${currentFontSize + 2}px`;
+    }
+
+    function decreaseFontSize() {
+      const currentFontSize = parseFloat(window.getComputedStyle(codeEditor).fontSize);
+      codeEditor.style.fontSize = `${currentFontSize - 2}px`;
+    }
+
+    runCodeButton.addEventListener('click', updatePreview);
+    saveCodeButton.addEventListener('click', () => {
+      const code = codeEditor.value;
+      // Add your save code logic here
+      console.log('Code saved:', code);
+    });
+    formatCodeButton.addEventListener('click', formatCode);
+    toggleFullscreenButton.addEventListener('click', toggleFullscreen);
+    increaseFontButton.addEventListener('click', increaseFontSize);
+    decreaseFontButton.addEventListener('click', decreaseFontSize);
+  </script>
+</body>
+</html>
